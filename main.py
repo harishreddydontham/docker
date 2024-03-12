@@ -31,3 +31,16 @@ def get_s3_buckets(region)->list:
         bucket_list.append(bucket['Name'])
     print(bucket_list)    
     return bucket_list    
+
+@app1.get("/checks3")
+def check_s3_buckets(bucket_name, region):
+    s3=boto3.client('s3', region_name=region) 
+    res = s3.list_buckets()
+    bucket_list = []
+    for bucket in res['Buckets']:
+        bucket_list.append(bucket['Name'])
+    if   bucket_name in bucket_list:
+        return f"Bucket {bucket_name} exists . use a different name"  
+    else:
+        return f"Bucket {bucket_name} can be created"
+    
