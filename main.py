@@ -44,3 +44,15 @@ def check_s3_buckets(bucket_name, region):
     else:
         return f"Bucket {bucket_name} can be created"
     
+@app1.get("/files")
+def list_files_in_bucket(bucket_name, region):
+    s3 = boto3.client('s3', region_name=region)
+    response = s3.list_objects_v2(Bucket=bucket_name)
+    file_list = []
+    for obj in response['Contents']:
+        file_list.append(obj['Key'])
+    print(file_list)
+    return file_list    
+
+
+    
