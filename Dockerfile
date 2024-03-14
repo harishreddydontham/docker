@@ -11,5 +11,5 @@ COPY main.py main.py
 ADD instruction.info instruction.info
 ARG T_VERSION=1.70
 ADD https://releases.hashicorp.com/terraform/${T_VERSION}/terraform_${T_VERSION}_linux_amd64.zip terraform.zip
-RUN unzip terraform.zip -d /usr/local/bin
+RUN unzip terraform.zip -d /usr/local/bin && terraform --version
 CMD ["uvicorn", "main:app1", "--host", "0.0.0.0", "--port", "80" ]
