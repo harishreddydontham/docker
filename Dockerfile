@@ -13,5 +13,5 @@ ARG T_VERSION=1.70
 ADD https://releases.hashicorp.com/terraform/${T_VERSION}/terraform_${T_VERSION}_linux_amd64.zip terraform.zip
 RUN unzip terraform.zip -d /usr/local/bin && terraform --version
 EXPOSE 80
-# CMD ["uvicorn", "main:app1", "--host", "0.0.0.0", "--port", "80" ]
-ENTRYPOINT ["uvicorn", "main:app1", "--host", "0.0.0.0", "--port", "8080" ]
+CMD ["uvicorn", "main:app1", "--host", "0.0.0.0", "--port", "80" ]
+# ENTRYPOINT ["uvicorn", "main:app1", "--host", "0.0.0.0", "--port", "80" ]

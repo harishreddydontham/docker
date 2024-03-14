@@ -54,5 +54,13 @@ def list_files_in_bucket(bucket_name, region):
     print(file_list)
     return file_list    
 
+@app1.post("/upload")
+def upload_file_to_bucket(bucket_name, file_path, region):
+    s3 = boto3.client('s3', region_name=region)
+    file_name = os.path.basename(file_path)
+    s3.upload_file(file_path, bucket_name, file_name)
+    return f"File {file_name} uploaded to bucket {bucket_name}"
+
+    import mysql.connector
 
     
