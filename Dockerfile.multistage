@@ -1,4 +1,4 @@
-From python:3.11 as base
+From python:3.11 as scanning-stage
 # FROM gcr.io/distroless/python3-debian12 as base
 LABEL app1="boto3 with FastAPI"
 WORKDIR /code
@@ -23,7 +23,7 @@ ENV AWS_SECRET_ACCESS_KEY=SAMPLESECRETKEY
 RUN python --version && apt update && apt install -y unzip
 COPY --from=build /usr/local/lib/python3.11 /usr/local/lib/python3.11
 COPY --from=build /usr/local/bin /usr/local/bin
-COPY --from=base /tmp/trivy.txt /tmp/trivy.txt
+COPY --from=scanning-stage /tmp/trivy.txt /tmp/trivy.txt
 COPY main.py main.py
 ADD instruction.info instruction.info
 RUN terraform --version
