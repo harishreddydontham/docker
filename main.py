@@ -7,10 +7,11 @@ import uvicorn
 load_dotenv()
 
 app1 = FastAPI()
-
+con_name = os.getenv("HOSTNAME")
+python_version = os.getenv("PYTHON_VERSION")
 @app1.get("/")
 def homepage():
-    return "you have reached home page of the fastapi application "
+    return f'your api is processed by the container with ID {con_name} running python version {python_version}.'
 
 @app1.get("/getvpc")
 def get_vpc_id_list(region):
