@@ -11,13 +11,14 @@ WORKDIR /code
 COPY requirements.txt requirements.txt
 RUN pip install --no-cache-dir --upgrade -r requirements.txt
 
-FROM build as image
+FROM python:3.11 as image
 LABEL app1="boto3 with FastAPI"
 MAINTAINER author = "dockertesting@gmail.com"
 ENV AWS_ACCESS_KEY_ID=SAMPLEKEYID
 ENV AWS_SECRET_ACCESS_KEY=SAMPLESECRETKEY
 RUN python --version && apt update && apt install -y unzip
 COPY --from=build /usr/local/lib/python3.11 /usr/local/lib/python3.11
+COPY --from=build /usr/local/bin /usr/local/bin
 COPY main.py main.py
 ADD instruction.info instruction.info
 ARG T_VERSION=1.70
