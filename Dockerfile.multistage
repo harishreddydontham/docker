@@ -5,6 +5,7 @@ WORKDIR /code
 COPY main.py main.py
 COPY --from=aquasec/trivy:latest /usr/local/bin/trivy /usr/local/bin/trivy
 RUN trivy filesystem --scanners vuln,secret,misconfig --exit-code 0 --no-progress /
+RUN trivy --version >/tmp/trivy.txt
 
 FROM python:3.11 as build
 WORKDIR /code
@@ -22,6 +23,7 @@ ENV AWS_SECRET_ACCESS_KEY=SAMPLESECRETKEY
 RUN python --version && apt update && apt install -y unzip
 COPY --from=build /usr/local/lib/python3.11 /usr/local/lib/python3.11
 COPY --from=build /usr/local/bin /usr/local/bin
+COPY --from=scanning-stage /tmp/trivy.txt /tmp/trivy.txt
 COPY main.py main.py
 ADD instruction.info instruction.info
 RUN terraform --version
