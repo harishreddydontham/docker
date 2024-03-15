@@ -17,6 +17,7 @@ MAINTAINER author = "dockertesting@gmail.com"
 ENV AWS_ACCESS_KEY_ID=SAMPLEKEYID
 ENV AWS_SECRET_ACCESS_KEY=SAMPLESECRETKEY
 RUN python --version && apt update && apt install -y unzip
+COPY --from=build /usr/local/lib/python3.11 /usr/local/lib/python3.11
 COPY main.py main.py
 ADD instruction.info instruction.info
 ARG T_VERSION=1.70
