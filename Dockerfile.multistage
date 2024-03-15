@@ -4,14 +4,14 @@ LABEL app1="boto3 with FastAPI"
 WORKDIR /code
 COPY main.py main.py
 COPY --from=aquasec/trivy:latest /usr/local/bin/trivy /usr/local/bin/trivy
-RUN trivy filesystem --scanners vuln,secret,misconfig --exit-code 0 --no-progress
+RUN trivy filesystem --scanners vuln,secret,misconfig --exit-code 0 --no-progress /
 
 FROM python:3.11 as build
-COPY requirements.txt requirements.txt
 WORKDIR /code
+COPY requirements.txt requirements.txt
 RUN pip install --no-cache-dir --upgrade -r requirements.txt
 
-FROM base as builder
+FROM build as image
 LABEL app1="boto3 with FastAPI"
 MAINTAINER author = "dockertesting@gmail.com"
 ENV AWS_ACCESS_KEY_ID=SAMPLEKEYID
