@@ -82,56 +82,56 @@ def connect_mysql(host, user, password, database):
         return f"Error connecting to MySQL database: {error}"
 
 
-# @app1.get("/create_table")
-# def create_table(host, user, password, database):
-#     try:
-#         # Connect to MySQL database
-#         connection = mysql.connector.connect(
-#             host=host,
-#             user=user,
-#             password=password,
-#             database=database
-#         )
-#         if connection.is_connected():
-#             # Create table query
-#             create_table_query = """
-#             CREATE TABLE customers (
-#                 id INT AUTO_INCREMENT PRIMARY KEY,
-#                 name VARCHAR(255),
-#                 location VARCHAR(255),
-#                 email VARCHAR(255)
-#             )
-#             """
-#             # Execute the create table query
-#             cursor = connection.cursor()
-#             cursor.execute(create_table_query)
-#             connection.commit()
-#             return "Table 'customers' created successfully"
-#         else:
-#             return "Failed to connect to MySQL database"
-#     except mysql.connector.Error as error:
-#         return f"Error connecting to MySQL database: {error}"
+@app1.get("/create_table")
+def create_table(host, user, password, database):
+    try:
+        # Connect to MySQL database
+        connection = mysql.connector.connect(
+            host=host,
+            user=user,
+            password=password,
+            database=database
+        )
+        if connection.is_connected():
+            # Create table query
+            create_table_query = """
+            CREATE TABLE customers (
+                id INT AUTO_INCREMENT PRIMARY KEY,
+                name VARCHAR(255),
+                location VARCHAR(255),
+                email VARCHAR(255)
+            )
+            """
+            # Execute the create table query
+            cursor = connection.cursor()
+            cursor.execute(create_table_query)
+            connection.commit()
+            return "Table 'customers' created successfully"
+        else:
+            return "Failed to connect to MySQL database"
+    except mysql.connector.Error as error:
+        return f"Error connecting to MySQL database: {error}"
     
-# @app1.get("/insert_data")
-# def insert_data(host, user, password, database):
-#     try:
-#         # Connect to MySQL database
-#         connection = mysql.connector.connect(
-#             host=host,
-#             user=user,
-#             password=password,
-#             database=database
-#         )
-#         if connection.is_connected():
-#             # Insert data query
-#             insert_data_query = """
-#             INSERT INTO customers (name, location, email) VALUES
-#             ('John', 'USA', 'john@gmal.com'),
-#             ('Alex', 'UK', 'alex@gmail.com'),
-#             ('Sue', 'Canada', 'sue@gmail.com');
-#             """
-#     except mysql.connector.Error as error:
-#         return f"Error connecting to MySQL database: {error}"
+@app1.get("/insert_data")
+def insert_data(host, user, password, database):
+    try:
+        # Connect to MySQL database
+        connection = mysql.connector.connect(
+            host=host,
+            user=user,
+            password=password,
+            database=database
+        )
+        if connection.is_connected():
+            # Insert data query
+            insert_data_query = """
+            INSERT INTO customers (name, location, email) VALUES
+            ('John', 'USA', 'john@gmal.com'),
+            ('Alex', 'UK', 'alex@gmail.com'),
+            ('Sue', 'Canada', 'sue@gmail.com');
+            """
+    except mysql.connector.Error as error:
+        return f"Error connecting to MySQL database: {error}"
     
 
 
