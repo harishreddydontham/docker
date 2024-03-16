@@ -4,6 +4,7 @@ import os
 from dotenv import load_dotenv, find_dotenv 
 from fastapi import FastAPI
 import uvicorn
+import mysql.connector
 load_dotenv()
 
 app1 = FastAPI()
@@ -62,6 +63,76 @@ def upload_file_to_bucket(bucket_name, file_path, region):
     s3.upload_file(file_path, bucket_name, file_name)
     return f"File {file_name} uploaded to bucket {bucket_name}"
 
-    import mysql.connector
+
+@app1.get("/connect_mysql")
+def connect_mysql(host, user, password, database):
+    try:
+        # Connect to MySQL database
+        connection = mysql.connector.connect(
+            host=host,
+            user=user,
+            password=password,
+            database=database
+        )
+        if connection.is_connected():
+            return "Connected to MySQL database"
+        else:
+            return "Failed to connect to MySQL database"
+    except mysql.connector.Error as error:
+        return f"Error connecting to MySQL database: {error}"
+
+
+# @app1.get("/create_table")
+# def create_table(host, user, password, database):
+#     try:
+#         # Connect to MySQL database
+#         connection = mysql.connector.connect(
+#             host=host,
+#             user=user,
+#             password=password,
+#             database=database
+#         )
+#         if connection.is_connected():
+#             # Create table query
+#             create_table_query = """
+#             CREATE TABLE customers (
+#                 id INT AUTO_INCREMENT PRIMARY KEY,
+#                 name VARCHAR(255),
+#                 location VARCHAR(255),
+#                 email VARCHAR(255)
+#             )
+#             """
+#             # Execute the create table query
+#             cursor = connection.cursor()
+#             cursor.execute(create_table_query)
+#             connection.commit()
+#             return "Table 'customers' created successfully"
+#         else:
+#             return "Failed to connect to MySQL database"
+#     except mysql.connector.Error as error:
+#         return f"Error connecting to MySQL database: {error}"
+    
+# @app1.get("/insert_data")
+# def insert_data(host, user, password, database):
+#     try:
+#         # Connect to MySQL database
+#         connection = mysql.connector.connect(
+#             host=host,
+#             user=user,
+#             password=password,
+#             database=database
+#         )
+#         if connection.is_connected():
+#             # Insert data query
+#             insert_data_query = """
+#             INSERT INTO customers (name, location, email) VALUES
+#             ('John', 'USA', 'john@gmal.com'),
+#             ('Alex', 'UK', 'alex@gmail.com'),
+#             ('Sue', 'Canada', 'sue@gmail.com');
+#             """
+#     except mysql.connector.Error as error:
+#         return f"Error connecting to MySQL database: {error}"
+    
+
 
     

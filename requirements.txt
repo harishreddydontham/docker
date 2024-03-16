@@ -10,3 +10,5 @@ google-cloud-storage==2.15.0
 azure-storage-blob==12.19.1
 google-compute-engine==2.8.13
 google-cloud-dns==0.35.0
+mysql-connector-python=8.3.0
+pymongo==1.6.2
