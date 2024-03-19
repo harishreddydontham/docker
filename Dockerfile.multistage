@@ -18,8 +18,8 @@ RUN unzip terraform.zip -d /usr/local/bin
 FROM python:3.11 as image-stage
 LABEL app1="boto3 with FastAPI"
 MAINTAINER author = "dockertesting@gmail.com"
-ENV AWS_ACCESS_KEY_ID=SAMPLEKEYID
-ENV AWS_SECRET_ACCESS_KEY=SAMPLESECRETKEY
+# ENV AWS_ACCESS_KEY_ID=SAMPLEKEYID
+# ENV AWS_SECRET_ACCESS_KEY=SAMPLESECRETKEY
 RUN python --version && apt update && apt install -y unzip
 COPY --from=build-stage /usr/local/lib/python3.11 /usr/local/lib/python3.11
 COPY --from=build-stage /usr/local/bin /usr/local/bin
